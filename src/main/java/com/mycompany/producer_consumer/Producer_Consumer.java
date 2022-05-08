@@ -13,6 +13,12 @@ public class Producer_Consumer {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        //empezar el GUI para entonces correr el codigo con la info del GUI
+        GUIFrame GUI_element = new GUIFrame();
+        GUI_element.startUI(args);
+        
+        //el codigo siguiente debe esperat a los parametros de UI para comenzar
+        
          //CODIGO DE PRODUCER CONSUMER----------------
         Buffer buffer = new Buffer();
       
@@ -21,5 +27,6 @@ public class Producer_Consumer {
         
         Consumer consumer = new Consumer(buffer);
         consumer.start();
+        //-------------------------------------------------
     }
 }
