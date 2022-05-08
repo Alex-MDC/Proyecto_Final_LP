@@ -6,9 +6,17 @@ import java.util.logging.Logger;
 
 public class Consumer extends Thread {
     Buffer buffer;
+    int consumer_id;
     
     Consumer(Buffer buffer) {
         this.buffer = buffer;
+    }
+    
+    public void set_id(int id){
+        this.consumer_id = id;
+    }
+    public int get_id(){
+        return this.consumer_id;
     }
     
     @Override
@@ -18,7 +26,7 @@ public class Consumer extends Thread {
         
         for(int i=0 ; i<5 ; i++) {
             product = this.buffer.consume();
-            System.out.println("Consumer consumed: " + product);
+            System.out.println("Consumer" + consumer_id +" consumed: " + product);
             //Buffer.print("Consumer consumed: " + product);
             
             try {

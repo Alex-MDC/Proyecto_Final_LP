@@ -7,9 +7,17 @@ import java.util.logging.Logger;
 
 public class Producer extends Thread {
     Buffer buffer;
+    int producer_id;
     
     Producer(Buffer buffer) {
         this.buffer = buffer;
+    }
+    
+    public void set_id(int id){
+        this.producer_id = id;
+    }
+    public int get_id(){
+        return this.producer_id;
     }
     
     @Override
@@ -23,7 +31,7 @@ public class Producer extends Thread {
             product = products.charAt(r.nextInt(5));
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);
-            Buffer.print("Producer produced: " + product);
+            Buffer.print("Producer" + producer_id+" produced: " + product);
             
             try {
                 Thread.sleep(1000);
