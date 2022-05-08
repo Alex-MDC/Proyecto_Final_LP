@@ -22,8 +22,9 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product;
+        String product;
         
+        //valor comparado a i en for dicta cuanto se consume 
         for(int i=0 ; i<5 ; i++) {
             product = this.buffer.consume();
             System.out.println("Consumer" + consumer_id +" consumed: " + product);

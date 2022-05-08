@@ -23,12 +23,25 @@ public class Producer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Producer...");
-        String products = "AEIOU";
+      //operadores en un string para ser randomly selected
+        String products = "+-*/";
         Random r = new Random(System.currentTimeMillis());
-        char product;
+        //char product;
+        String product;
         
+        //el num comparado a i es cuantos productos genera el producer por llamada
         for(int i=0 ; i<5 ; i++) {
-            product = products.charAt(r.nextInt(5));
+            //logiga de construccion de operacion scheme
+            product = "(";
+            //agregar una operacion aleatoria
+            product += products.charAt(r.nextInt(4));
+            //TODO: logica de agregar numeros en rango n a m
+            //este codigo es solo demostrativo,no esta en n a m aun, solo rango 0 a 9
+            product += " " +(new Random()).nextInt(10); 
+            product += " " +(new Random()).nextInt(10); 
+            
+            //cerrar el scheme op
+            product += ")";
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer" + producer_id+" produced: " + product);

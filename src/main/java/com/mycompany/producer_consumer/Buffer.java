@@ -6,38 +6,51 @@ import java.util.logging.Logger;
 
 public class Buffer {
     
-    private char buffer;
+    //hasta ahora buffer funcionaba como un flag de consumido o no
+    private String buffer;
+    //buffersize es una propuesta para el setting; que se trabaje hasta que
+    //contador interno llege al size
+    private int bufferSize;
+    private String scheme;
+    private boolean vacio;
     
     Buffer() {
-        this.buffer = 0;
+       // this.buffer = 0;
+       this.vacio = true;
     }
     
-    synchronized char consume() {
-        char product = 0;
+    synchronized String consume() {
+        String product;
         
-        while(this.buffer == 0) {
+        //si esta vacio el buffer,no hay nada que consumir
+        while(this.vacio == true) {
             try {
                 wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.buffer;
-        this.buffer = 0;
+        product = this.scheme;
+      //  this.buffer = 0;
+      //ya se consumio el producto entonces se libera el espacio
+        this.vacio = true;
         notifyAll();
         
         return product;
     }
     
-    synchronized void produce(char product) {
-        while(this.buffer != 0) {
+    //podemos usar string en vez de char product para armar el scheme op mas sencillo
+    synchronized void produce(String product) {
+        //si no esta vacio, no podemos producir algo al buffer
+        while(this.vacio == false) {
             try {
                 wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.buffer = product;
+        this.scheme = product;
+        this.vacio = false;
         
         notifyAll();
     }
