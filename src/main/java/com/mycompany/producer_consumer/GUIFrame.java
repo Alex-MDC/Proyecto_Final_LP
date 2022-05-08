@@ -40,8 +40,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jSpinner3 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
+        Productores_cantidad = new javax.swing.JSpinner();
+        Consumidores_cantidad = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -67,6 +67,8 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Consumidores");
 
+        Productores_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jLabel3.setText("Tamaño del Buffer");
 
         jLabel4.setText("Cantidad");
@@ -85,9 +87,9 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinner2)
+                    .addComponent(Consumidores_cantidad)
                     .addComponent(jTextField3)
-                    .addComponent(jSpinner1)
+                    .addComponent(Productores_cantidad)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -108,13 +110,13 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Productores_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Consumidores_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -260,13 +262,49 @@ public class GUIFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         //poner el stop / detener aquiii----------------------------------------------
-         System.out.println("BUTTon------STOP---------CLICKED!");
+         System.out.println("BUTTON------STOP---------CLICKED!");
+         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
         // que hacer cuando se pique start!
-         System.out.println("BUTTON-----START------CLICKED!");
+        System.out.println("BUTTON-----START------CLICKED!");
+        //TODO:
+        //implementar logica de buffer size
+        Buffer buffer = new Buffer();
+        
+        //implementar logica de num de productores-------------------
+        Producer[] producer_array;
+        
+        System.out.println("Cantidad de productores:" + Productores_cantidad.getValue() );
+        int num_productores = (int) Productores_cantidad.getValue();
+        
+        //allocating memory for n producrers
+        producer_array = new Producer[num_productores];
+        
+        for (int i =0; i < num_productores; i++){
+            producer_array[i] = new Producer(buffer);
+            producer_array[i].producer_id = i+1;
+            producer_array[i].start();
+        }
+        
+        //implementar logica de num de consumidores-------------
+        Consumer[] consumer_array;
+        
+        System.out.println("Cantidad de consumidores:" + Consumidores_cantidad.getValue() );
+        int num_consumidores = (int) Consumidores_cantidad.getValue();
+        
+        //allocating memory for n consumers
+        consumer_array = new Consumer[num_consumidores];
+        for (int i =0; i < num_consumidores; i++){
+            consumer_array[i] = new Consumer(buffer);
+            consumer_array[i].consumer_id = i+1;
+            consumer_array[i].start();
+        }
+     
+       
+      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -306,6 +344,8 @@ public class GUIFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner Consumidores_cantidad;
+    private javax.swing.JSpinner Productores_cantidad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -322,8 +362,6 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;

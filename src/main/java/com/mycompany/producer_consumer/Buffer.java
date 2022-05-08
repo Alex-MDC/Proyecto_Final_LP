@@ -43,6 +43,8 @@ public class Buffer {
     }
     
     static int count = 1;
+    //cuando llegue a el num de buffer establecido en el UI el count
+    // es cuando acabamos. podemos updatear la barrita de progreso con esto
     synchronized static void print(String string) {
         System.out.print(count++ + " ");
         System.out.println(string);

@@ -19,7 +19,8 @@ public class Producer_Consumer {
         
         //el codigo siguiente debe esperat a los parametros de UI para comenzar
         
-         //CODIGO DE PRODUCER CONSUMER----------------
+         //CODIGO DE PRODUCER CONSUMER ORIGINAL----------------
+         /*
         Buffer buffer = new Buffer();
       
         Producer producer = new Producer(buffer);
@@ -27,6 +28,7 @@ public class Producer_Consumer {
         
         Consumer consumer = new Consumer(buffer);
         consumer.start();
+        */
         //-------------------------------------------------
     }
 }
