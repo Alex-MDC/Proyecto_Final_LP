@@ -4,60 +4,65 @@ package com.mycompany.producer_consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Buffer {
     
-    //hasta ahora buffer funcionaba como un flag de consumido o no
-    private String buffer;
-    //buffersize es una propuesta para el setting; que se trabaje hasta que
-    //contador interno llege al size
+    //buffer debe ser una coleccion de algo o array. ir llenandolo
+    private Queue<String> buffer_queue;
+    //lleva el control de cuantas operaciones ya se hicieron del buffer.
     private int bufferSize;
-    private String scheme;
-    private boolean vacio;
     
-    Buffer() {
-       // this.buffer = 0;
-       this.vacio = true;
+   
+    Buffer(int size) {
+      this.bufferSize = size;
+        //iniciar el queue
+      this.buffer_queue = new LinkedList<>();
+      System.out.println("bufferSize:  "+ this.bufferSize);
     }
     
     synchronized String consume() {
         String product;
         
         //si esta vacio el buffer,no hay nada que consumir
-        while(this.vacio == true) {
+        while(this.buffer_queue.isEmpty()) {
             try {
                 wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        product = this.scheme;
-      //  this.buffer = 0;
-      //ya se consumio el producto entonces se libera el espacio
-        this.vacio = true;
+       
+       //hacemos "pop"
+       product = this.buffer_queue.remove();
         notifyAll();
         
         return product;
     }
     
-    //podemos usar string en vez de char product para armar el scheme op mas sencillo
+    //podemos usar string e para armar el scheme op 
     synchronized void produce(String product) {
         //si no esta vacio, no podemos producir algo al buffer
-        while(this.vacio == false) {
+        //llevar el control del tamano del buffer
+        this.bufferSize--;
+        System.out.println("bufferSize:  "+ this.bufferSize);
+        while(this.bufferSize < 0) {
             try {
                 wait();
             } catch (InterruptedException ex) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        this.scheme = product;
-        this.vacio = false;
+        //push
+        this.buffer_queue.add(product);
         
+        
+       
         notifyAll();
     }
     
     static int count = 1;
-    //cuando llegue a el num de buffer establecido en el UI el count
-    // es cuando acabamos. podemos updatear la barrita de progreso con esto
     synchronized static void print(String string) {
         System.out.print(count++ + " ");
         System.out.println(string);
