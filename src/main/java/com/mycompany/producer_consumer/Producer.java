@@ -26,17 +26,17 @@ public class Producer extends Thread {
       //operadores en un string para ser randomly selected
         String products = "+-*/";
         Random r = new Random(System.currentTimeMillis());
-        //char product;
         String product;
         
-        //el num comparado a i es cuantos productos genera el producer por llamada
-        for(int i=0 ; i<5 ; i++) {
-            //logiga de construccion de operacion scheme
+        //producir mientras flag sea true
+        for(int i=0 ; this.buffer.produceFlag ; i++) {
+            //logica de construccion de operacion scheme
             product = "(";
             //agregar una operacion aleatoria
             product += products.charAt(r.nextInt(4));
+            
             //TODO: logica de agregar numeros en rango n a m
-            //este codigo es solo demostrativo,no esta en n a m aun, solo rango 0 a 9
+            //este codigo es solo demostrativo,no esta en n a m aun, solo rango 0 a 9-------------------------------------------------
             product += " " +(new Random()).nextInt(10); 
             product += " " +(new Random()).nextInt(10); 
             
