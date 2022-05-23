@@ -4,6 +4,10 @@
  */
 
 package com.mycompany.producer_consumer;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
 
 /**
  *

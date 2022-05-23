@@ -1,9 +1,15 @@
 package com.mycompany.producer_consumer;
 
+
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+
+
+import javax.swing.JProgressBar;
+import javax.swing.*; 
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,13 +21,33 @@ import javax.swing.table.TableModel;
  *
  * @author sdegante
  */
-public class GUIFrame extends javax.swing.JFrame {
 
+public class GUIFrame extends javax.swing.JFrame {
+    JProgressBar progressBar;
+    /*JProgressBar jb;    
+int i=0,num=0;     
+GUIFrame(){    
+jb=new JProgressBar(0,100);    
+jb.setBounds(40,40,160,30);         
+jb.setValue(0);    
+jb.setStringPainted(true);    
+add(jb);    
+setSize(250,150);    
+setLayout(null);    
+}    
+public void iterate(){    
+while(i<=2000){    
+  jb.setValue(i);    
+  i=i+20;    
+  try{Thread.sleep(150);}catch(Exception e){}    
+}/*
     /**
      * Creates new form GUIFrame
      */
     public GUIFrame() {
         initComponents();
+
+        
     }
 
     /**
@@ -296,6 +322,8 @@ public class GUIFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //poner el stop / detener aquiii----------------------------------------------
          System.out.println("BUTTON------STOP---------CLICKED!");
+         //Cuando se presione el botton de stop se saldra de la applicacion
+         System.exit(0);
          
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -374,6 +402,7 @@ public class GUIFrame extends javax.swing.JFrame {
             consumer_array[i].tiempoDeEspera = tiempoEsperaConsumidores; 
             consumer_array[i].start();
         }
+
         
         for (int i =0; i < num_consumidores; i++){
             Vector v= new Vector();
@@ -388,14 +417,67 @@ public class GUIFrame extends javax.swing.JFrame {
         }
             
     }
-
             
+
+        //Tiempo espera entre 0-10000 producer
+      String tiempoEsperaP;
+        tiempoEsperaP = jTextField1.getText();
+        int tmpoEsperaP=Integer.parseInt(tiempoEsperaP);
+        if(tmpoEsperaP<0 && tmpoEsperaP>10000){
+            //Si cumple con la condicion se ejecuta el codigo
+            System.out.println("ERROR: El valor no esta entre 0-10000");
+            noEjecutar();
+        }
+            else{
+                   ejecutar();
+                    }
+            //Si no cumple con la condicion, crear un switch que no deje ejecutar el START
+            
+            //Tiempo espera entre 0-10000 consumer
+      String tiempoEsperaC;
+        tiempoEsperaC = jTextField2.getText();
+        int tmpoEsperaC = Integer.parseInt(tiempoEsperaC);
+        if(tmpoEsperaC<0 && tmpoEsperaC>10000){
+            //Si cumple con la condicion se ejecuta el codigo
+           System.out.println("ERROR: El valor no esta entre 0-10000");
+           noEjecutar();
+        }
+            else{
+                    ejecutar();
+                    }
+            //Si no cumple con la condicion, crear un switch que no deje ejecutar el START
+        
+            
+       
+      
+
     }//GEN-LAST:event_jButton1ActionPerformed
+    
+      
+   
 
-    private void buffer_size_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buffer_size_inputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buffer_size_inputActionPerformed
 
+    
+    
+    public boolean ejecutar(){
+       jButton1.setEnabled(true);
+       return true;
+    }
+    
+    public boolean noEjecutar(){
+       jButton1.setEnabled(false);
+       return false;
+    }
+    
+    public DefaultTableModel getnumHacer(){
+        return (DefaultTableModel)jTable1.getModel();
+    }
+    
+    public DefaultTableModel getnumRealizado(){
+        return (DefaultTableModel)jTable2.getModel();
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
