@@ -10,13 +10,21 @@ package com.mycompany.producer_consumer;
  *
  * @author sdegante
  */
-public class GUIFrame extends javax.swing.JFrame {
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JProgressBar;
+import javax.swing.JLabel;
+
+public class GUIFrame extends javax.swing.JFrame {
+    public int stopButton = 0;
+    public boolean begin = false;
     /**
      * Creates new form GUIFrame
      */
     public GUIFrame() {
         initComponents();
+
     }
 
     /**
@@ -263,6 +271,8 @@ public class GUIFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         //poner el stop / detener aquiii----------------------------------------------
          System.out.println("BUTTON------STOP---------CLICKED!");
+         this.begin = true;
+         setStopButton(-1);
          
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -306,10 +316,46 @@ public class GUIFrame extends javax.swing.JFrame {
             consumer_array[i].start();
         }
      
+        
        
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
+     public int getstopButton(){
+        return this.stopButton;
+    }
+    
+    public boolean getBegin(){
+        return this.begin;
+    }
+    
+    public DefaultTableModel getNumHacer(){
+        //Leyendo el codigo sabemos que jTable1 es TareasporHacer
+        return (DefaultTableModel)jTable1.getModel();
+    }
+    
+    public DefaultTableModel getNumTareaRealizada(){
+        //leyendo el codigo sabemos que jTable2 es tareas Realizadas
+        return (DefaultTableModel)jTable2.getModel();
+    }
+    
+    public JProgressBar getNumBar(){
+        //leyendo el codigo sabemos que jProgressBar1 hace referencia a numBar
+        return jProgressBar1;
+    }
+    
+    public void setStopButton(int stopButton){
+        this.stopButton = stopButton;
+        //leyendo el codigo definimos que el jButton1 hace referencia al start
+        jButton1.setEnabled(stopButton == 0);
+        //leyendo el codigo definmos que el jButton2 hace referencia al Stop
+        jButton2.setEnabled(!(stopButton == 0));
+        this.setEnabled(stopButton == 0);
+    }
+    //jLabel5=tiempoEspera
+    //jLabel11=tiempoEsperaProducers
+    //jLabel12=tiempoEsperaConsumers
+    //jLabel14=cantidad
     /**
      * @param args the command line arguments
      */
