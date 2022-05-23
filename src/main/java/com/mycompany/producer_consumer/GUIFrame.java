@@ -421,7 +421,7 @@ while(i<=2000){
 
         //Tiempo espera entre 0-10000 producer
       String tiempoEsperaP;
-        tiempoEsperaP = jTextField1.getText();
+        tiempoEsperaP = tiempoDeEsperaProductores .getText();
         int tmpoEsperaP=Integer.parseInt(tiempoEsperaP);
         if(tmpoEsperaP<0 && tmpoEsperaP>10000){
             //Si cumple con la condicion se ejecuta el codigo
@@ -435,7 +435,7 @@ while(i<=2000){
             
             //Tiempo espera entre 0-10000 consumer
       String tiempoEsperaC;
-        tiempoEsperaC = jTextField2.getText();
+        tiempoEsperaC = tiempoDeEsperaConsumidores.getText();
         int tmpoEsperaC = Integer.parseInt(tiempoEsperaC);
         if(tmpoEsperaC<0 && tmpoEsperaC>10000){
             //Si cumple con la condicion se ejecuta el codigo
@@ -470,11 +470,11 @@ while(i<=2000){
     }
     
     public DefaultTableModel getnumHacer(){
-        return (DefaultTableModel)jTable1.getModel();
+        return (DefaultTableModel)tareasPorHacerTabla.getModel();
     }
     
     public DefaultTableModel getnumRealizado(){
-        return (DefaultTableModel)jTable2.getModel();
+        return (DefaultTableModel)tareasRealizadasTabla.getModel();
     }
     
     
