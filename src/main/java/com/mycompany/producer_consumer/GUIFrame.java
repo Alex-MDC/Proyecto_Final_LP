@@ -48,9 +48,9 @@ public class GUIFrame extends javax.swing.JFrame {
         rangoDeValoresBajo = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         tareasPorHacer = new javax.swing.JScrollPane();
-        tareasPorHacerTabla = new javax.swing.JTable();
-        tareasRealizadas = new javax.swing.JScrollPane();
-        tareasRealizadasTabla = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tareasRealizadas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -149,20 +149,7 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Configuración", jPanel2);
 
-        tareasPorHacerTabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "ID", "Tarea"
-            }
-        ));
-        tareasPorHacer.setViewportView(tareasPorHacerTabla);
-
-        tareasRealizadasTabla.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -173,7 +160,20 @@ public class GUIFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2"
             }
         ));
-        tareasRealizadas.setViewportView(tareasRealizadasTabla);
+        tareasPorHacer.setViewportView(jTable1);
+
+        tareasRealizadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane2.setViewportView(tareasRealizadas);
 
         jLabel7.setText("Tareas por hacer");
 
@@ -193,7 +193,7 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                     .addComponent(jSpinner4))
                 .addContainerGap(11, Short.MAX_VALUE))
@@ -208,7 +208,7 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tareasPorHacer, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-                    .addComponent(tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -380,15 +380,15 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JSpinner rangoDeValoresAlto;
     private javax.swing.JSpinner rangoDeValoresBajo;
     private javax.swing.JScrollPane tareasPorHacer;
-    private javax.swing.JTable tareasPorHacerTabla;
-    private javax.swing.JScrollPane tareasRealizadas;
-    private javax.swing.JTable tareasRealizadasTabla;
+    private javax.swing.JTable tareasRealizadas;
     // End of variables declaration//GEN-END:variables
 }
