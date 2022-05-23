@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 public class Producer extends Thread {
     Buffer buffer;
     int producer_id;
+    String productFinal = "";
+    int tiempoDeEspera;
     
     Producer(Buffer buffer) {
         this.buffer = buffer;
@@ -19,7 +21,13 @@ public class Producer extends Thread {
     public int get_id(){
         return this.producer_id;
     }
-    
+    public void set_product(String product){
+        this.productFinal = product;
+    }
+    public String get_product(){
+        return this.productFinal;
+    }
+        
     @Override
     public void run() {
         System.out.println("Running Producer...");
@@ -44,13 +52,15 @@ public class Producer extends Thread {
             product += ")";
             this.buffer.produce(product);
             //System.out.println("Producer produced: " + product);
-            Buffer.print("Producer" + producer_id+" produced: " + product);
+            Buffer.print("Producer" + producer_id+" produced: " + product + "tiempo espera " + tiempoDeEspera);
+            this.set_product(product); 
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(tiempoDeEspera);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }
     
