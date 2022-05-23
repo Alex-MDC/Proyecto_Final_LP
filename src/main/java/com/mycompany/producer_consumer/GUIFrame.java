@@ -305,12 +305,11 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("BUTTON-----START------CLICKED!");
         
         
-        DefaultTableModel dtm = (DefaultTableModel) tareasPorHacerTabla.getModel();
-        dtm.setRowCount(0);
-        Vector v= new Vector();
-        v.add("Hey");
-        v.add("Name 1");
-        dtm.addRow(v);
+        DefaultTableModel dtmPorHacer = (DefaultTableModel) tareasPorHacerTabla.getModel();
+        DefaultTableModel dtmRealizadas = (DefaultTableModel) tareasRealizadasTabla.getModel();
+
+        dtmPorHacer.setRowCount(0);
+        dtmRealizadas.setRowCount(0);
                 
         // Guardar los valores de rangos de operaciones scheme
         int rangoValoresBajo = (Integer) rangoDeValoresBajo.getValue();
@@ -319,6 +318,11 @@ public class GUIFrame extends javax.swing.JFrame {
         int tiempoEsperaProductores = Integer.parseInt(tiempoDeEsperaProductores.getText());
         int buffer_size = Integer.parseInt( buffer_size_input.getText());
                 
+        
+        /*
+                Deteccion de error valores fuera de rango 
+        */
+        
         if (tiempoEsperaConsumidores > 10000 || tiempoEsperaConsumidores < 0) {
             JOptionPane.showMessageDialog(null, "El tiempo de espera de consumidores es incorrecto!");
         } else if (tiempoEsperaProductores > 10000 || tiempoEsperaProductores < 0) {
@@ -344,9 +348,18 @@ public class GUIFrame extends javax.swing.JFrame {
         for (int i =0; i < num_productores; i++){
             producer_array[i] = new Producer(buffer);
             producer_array[i].producer_id = i+1;
+            producer_array[i].tiempoDeEspera = tiempoEsperaProductores; 
             producer_array[i].start();
         }
         
+                
+        for (int i =0; i < num_productores; i++){
+            Vector v= new Vector();
+            v.add(producer_array[i].get_id());
+            v.add(producer_array[i].get_product());
+            dtmPorHacer.addRow(v);
+        }
+           
         //implementar logica de num de consumidores-------------
         Consumer[] consumer_array;
         
@@ -358,7 +371,20 @@ public class GUIFrame extends javax.swing.JFrame {
         for (int i =0; i < num_consumidores; i++){
             consumer_array[i] = new Consumer(buffer);
             consumer_array[i].consumer_id = i+1;
+            consumer_array[i].tiempoDeEspera = tiempoEsperaConsumidores; 
             consumer_array[i].start();
+        }
+        
+        for (int i =0; i < num_consumidores; i++){
+            Vector v= new Vector();
+            v.add(consumer_array[i].get_id());
+            String producto = "";
+            v.add(consumer_array[i].get_product());
+            // Falta obtener resultado
+            v.add("");
+            dtmPorHacer.removeRow(0);
+            dtmRealizadas.addRow(v);
+
         }
             
     }
