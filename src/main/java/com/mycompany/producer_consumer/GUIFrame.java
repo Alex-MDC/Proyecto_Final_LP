@@ -1,6 +1,9 @@
 package com.mycompany.producer_consumer;
 
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,8 +37,8 @@ public class GUIFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tiempoDeEsperaProductores = new javax.swing.JTextField();
+        tiempoDeEsperaConsumidores = new javax.swing.JTextField();
         buffer_size_input = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         rangoDeValoresAlto = new javax.swing.JSpinner();
@@ -61,7 +64,18 @@ public class GUIFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel5.setText("Tiempo de Espera (ms)");
+        jLabel5.setText("Tiempo de Espera (0 - 10,000ms)  ");
+
+        tiempoDeEsperaProductores.setText("0");
+
+        tiempoDeEsperaConsumidores.setText("0");
+
+        buffer_size_input.setText("1");
+        buffer_size_input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buffer_size_inputActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Rango de Valores (n, m)");
 
@@ -71,9 +85,12 @@ public class GUIFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Consumidores");
 
+        Productores_cantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
         Productores_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel3.setText("Tamaño del Buffer");
+        Consumidores_cantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+
+        jLabel3.setText("Tamaño del Buffer (1 - 100)");
 
         jLabel4.setText("Cantidad");
 
@@ -92,18 +109,20 @@ public class GUIFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Consumidores_cantidad)
-                    .addComponent(buffer_size_input)
-                    .addComponent(Productores_cantidad)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                    .addComponent(rangoDeValoresBajo, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(rangoDeValoresAlto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Consumidores_cantidad)
+                            .addComponent(Productores_cantidad)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addComponent(rangoDeValoresBajo, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tiempoDeEsperaProductores)
+                            .addComponent(tiempoDeEsperaConsumidores)
+                            .addComponent(rangoDeValoresAlto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(buffer_size_input))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,13 +135,13 @@ public class GUIFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Productores_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tiempoDeEsperaProductores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(Consumidores_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tiempoDeEsperaConsumidores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
@@ -150,26 +169,24 @@ public class GUIFrame extends javax.swing.JFrame {
 
         tareasPorHacerTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "ID", "Tarea"
+                "ID", "Name"
             }
         ));
+        tareasPorHacerTabla.getTableHeader().setReorderingAllowed(false);
         tareasPorHacer.setViewportView(tareasPorHacerTabla);
 
         tareasRealizadasTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Tarea"
+                "ID", "Tarea", "Resultado"
             }
         ));
         tareasRealizadas.setViewportView(tareasRealizadasTabla);
@@ -186,16 +203,25 @@ public class GUIFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(tareasPorHacer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(jSpinner4))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tareasPorHacer, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 59, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tareasRealizadas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,12 +268,14 @@ public class GUIFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(12, 12, 12))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,19 +305,31 @@ public class GUIFrame extends javax.swing.JFrame {
         System.out.println("BUTTON-----START------CLICKED!");
         
         
+        DefaultTableModel dtm = (DefaultTableModel) tareasPorHacerTabla.getModel();
+        dtm.setRowCount(0);
+        Vector v= new Vector();
+        v.add("Hey");
+        v.add("Name 1");
+        dtm.addRow(v);
+                
         // Guardar los valores de rangos de operaciones scheme
         int rangoValoresBajo = (Integer) rangoDeValoresBajo.getValue();
         int rangoValoresAlto = (Integer) rangoDeValoresAlto.getValue();
-        
-        if (rangoValoresBajo > rangoValoresAlto) {
-            JOptionPane.showMessageDialog(null, "El rango es incorrecto!");
-        }
-
-        
-        //implementar logica de buffer size
+        int tiempoEsperaConsumidores = Integer.parseInt(tiempoDeEsperaConsumidores.getText());
+        int tiempoEsperaProductores = Integer.parseInt(tiempoDeEsperaProductores.getText());
         int buffer_size = Integer.parseInt( buffer_size_input.getText());
+                
+        if (tiempoEsperaConsumidores > 10000 || tiempoEsperaConsumidores < 0) {
+            JOptionPane.showMessageDialog(null, "El tiempo de espera de consumidores es incorrecto!");
+        } else if (tiempoEsperaProductores > 10000 || tiempoEsperaProductores < 0) {
+            JOptionPane.showMessageDialog(null, "El tiempo de espera de productores es incorrecto!");
+        } else if (rangoValoresBajo > rangoValoresAlto) {
+            JOptionPane.showMessageDialog(null, "El rango es incorrecto!");
+        } else if(buffer_size > 100 || buffer_size < 1) {
+            JOptionPane.showMessageDialog(null, "El tamaño de buffer es incorrecto!");
+        } else {
+            //implementar logica de buffer size
         Buffer buffer = new Buffer(buffer_size);
-        
         
         
         //implementar logica de num de productores-------------------
@@ -320,10 +360,15 @@ public class GUIFrame extends javax.swing.JFrame {
             consumer_array[i].consumer_id = i+1;
             consumer_array[i].start();
         }
-     
-       
-      
+            
+    }
+
+            
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void buffer_size_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buffer_size_inputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buffer_size_inputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,13 +426,13 @@ public class GUIFrame extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JSpinner rangoDeValoresAlto;
     private javax.swing.JSpinner rangoDeValoresBajo;
     private javax.swing.JScrollPane tareasPorHacer;
     private javax.swing.JTable tareasPorHacerTabla;
     private javax.swing.JScrollPane tareasRealizadas;
     private javax.swing.JTable tareasRealizadasTabla;
+    private javax.swing.JTextField tiempoDeEsperaConsumidores;
+    private javax.swing.JTextField tiempoDeEsperaProductores;
     // End of variables declaration//GEN-END:variables
 }
